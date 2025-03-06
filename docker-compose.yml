@@ -1,0 +1,89 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpass
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis/redis-stack
+    container_name: redis
+    restart: always
+    command: redis-server --requirepass systempass
+    ports:
+      - "6379:6379"
+
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+
+  eureka:
+    build:
+      context: ./eureka
+    container_name: eureka
+    ports:
+      - "19090:19090"
+
+  gateway:
+    build:
+      context: ./gateway
+    container_name: gateway
+    ports:
+      - "19091:19091"
+    depends_on:
+      - eureka
+      - auth
+      - product1
+      - product2
+      - order
+
+  auth:
+    build:
+      context: ./auth
+    container_name: auth
+    ports:
+      - "19095:19095"
+    depends_on:
+      - postgres
+      - eureka
+
+  product1:
+    build:
+      context: ./product
+    container_name: product1
+    ports:
+      - "19093:19093"
+    depends_on:
+      - postgres
+      - eureka
+      - redis
+
+  product2:
+    build:
+      context: ./product
+    container_name: product2
+    ports:
+      - "19094:19094"
+    depends_on:
+      - postgres
+      - eureka
+      - redis
+
+  order:
+    build:
+      context: ./order
+    container_name: order
+    ports:
+      - "19092:19092"
+    depends_on:
+      - postgres
+      - eureka
+      - redis
