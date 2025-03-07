@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/msa-exam.auth.main.iml" filepath="$PROJECT_DIR$/.idea/modules/msa-exam.auth.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/msa-exam.order.main.iml" filepath="$PROJECT_DIR$/.idea/modules/msa-exam.order.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/msa-exam.product.main.iml" filepath="$PROJECT_DIR$/.idea/modules/msa-exam.product.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/msa-project.iml" filepath="$PROJECT_DIR$/.idea/msa-project.iml" />
     </modules>
   </component>
